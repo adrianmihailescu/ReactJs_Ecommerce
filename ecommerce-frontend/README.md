@@ -1,1 +1,1 @@
-# React .js apl for the back-end app
+# React .js app for the back-end app
