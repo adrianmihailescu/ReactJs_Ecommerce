@@ -20,7 +20,6 @@ function CheckoutPage() {
           onApprove={(data, actions) => {
             return actions.order.capture().then(details => {
               alert('Transaction completed by ' + details.payer.name.given_name);
-              // Here you can call backend to save the order
             });
           }}
         />
