@@ -13,13 +13,13 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post('/login', { email, password });
+      const res = await API.post('http://localhost:5000/api/auth/login', { email, password });
       console.log('Login response:', res.data);
       dispatch(login(res.data));
       navigate('/');
     } catch (err) {
       console.error('Login failed.', err);
-      alert('Invalid credentials');
+      alert('Logion failed. Please try again later.');
     }
   };
 
