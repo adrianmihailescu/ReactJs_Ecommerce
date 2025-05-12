@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import API from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import {backEndApiUrl} from '../config';
 
 function RegisterPage() {
   const [name, setName] = useState('');
@@ -12,7 +13,7 @@ function RegisterPage() {
     e.preventDefault();
     try {
       console.log('Registering user:', { name, email, password });
-      const registerPath = `${process.env.BACK_END_API_URL}/auth/register`;
+      const registerPath = `${backEndApiUrl}/auth/register`;
       await API.post(registerPath, { name, email, password });
       alert('Registration successful! Please login.');
       navigate('/login');
