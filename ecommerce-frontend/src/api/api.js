@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {backEndApiUrl} from '../config';
 
 const API = axios.create({
-  baseURL: process.env.BACKEND_APP_API_URL,
+  baseURL: backEndApiUrl,
 });
 
 export default API;

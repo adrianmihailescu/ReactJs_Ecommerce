@@ -14,6 +14,8 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Login credentials:', email, password);
+      console.log('API URL:', `${backEndApiUrl}/auth/login`);
       const res = await API.post(`${backEndApiUrl}/auth/login`, { email, password });
       console.log('Login response:', res.data);
       dispatch(login(res.data));
