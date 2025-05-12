@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import imageNotFound from '../assets/images/product_not_found.png';
+import './ProductPage.css';
 
 function ProductPage() {
   const { id } = useParams();
@@ -10,20 +11,26 @@ function ProductPage() {
 
   const product = products.find(p => p._id === id);
 
-  if (!product) return <div>Product not found</div>;
+  if (!product) return <div className="product-card">Product not found</div>;
 
   return (
-    <div>
-      <img src={product.image} alt={product.name} width="300"
+    <div className="product-card product-detail">
+      <img
+        className="product-image"
+        src={product.image}
+        alt={product.name}
         onError={(e) => {
-        e.target.onerror = null; // prevents infinite loop
-        e.target.src = imageNotFound;
-      }}
+          e.target.onerror = null;
+          e.target.src = imageNotFound;
+        }}
       />
-      <h2>{product.name}</h2>
+      <h3>{product.name}</h3>
       <p>{product.description}</p>
-      <p>${product.price}</p>
+      <p><strong>${product.price.toFixed(2)}</strong></p>
       <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
+            <Link to="/" className="back-to-home">
+        &larr;Home
+      </Link>
     </div>
   );
 }
