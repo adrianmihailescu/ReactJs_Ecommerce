@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import {reactPayPalClientId} from '../config';
 
 function CheckoutPage() {
   const cart = useSelector(state => state.cart);
@@ -9,7 +8,7 @@ function CheckoutPage() {
   return (
     <div>
       <h1>Checkout</h1>
-      <PayPalScriptProvider options={{ "client-id": reactPayPalClientId }}>
+      <PayPalScriptProvider options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
         <PayPalButtons
           createOrder={(data, actions) => {
             return actions.order.create({

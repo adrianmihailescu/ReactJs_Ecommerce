@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
 import ProductCard from '../components/ProductCard';
+import imageNotFound from '../assets/images/product_not_found.png';
 
 function HomePage() {
   const products = useSelector(state => state.products);
-
-  console.log(`products: ${products}`); // ⬅️ check if products exist
 
   return (
     <div>

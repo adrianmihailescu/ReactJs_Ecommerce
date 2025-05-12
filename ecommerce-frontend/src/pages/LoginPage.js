@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/authSlice';
 import API from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import {backEndApiUrl} from '../config';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,10 +13,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('Login credentials:', email, password);
-      console.log('API URL:', `${backEndApiUrl}/auth/login`);
-      const res = await API.post(`${backEndApiUrl}/auth/login`, { email, password });
-      console.log('Login response:', res.data);
+      const res = await API.post(`${process.env.BACK_END_API_URL}/auth/login`, { email, password });
       dispatch(login(res.data));
       navigate('/');
     } catch (err) {
