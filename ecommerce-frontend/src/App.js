@@ -6,8 +6,19 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+// import { loadCart } from './redux/cartSlice';
 
 function App() {
+    // const dispatch = useDispatch();
+
+    /*
+    useEffect(() => {
+      dispatch(loadCart());
+    }, [dispatch]);
+    */
+
   return (
     <Router>
       <Header />

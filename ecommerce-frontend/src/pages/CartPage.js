@@ -33,7 +33,7 @@ function CartPage() {
       ))}
       <h3>Total: ${total.toFixed(2)}</h3>
       <Link to="/checkout">
-        <button>Proceed to Checkout</button>
+        <button disabled={cart.length == 0}>Proceed to Checkout</button>
       </Link>
     </div>
   );

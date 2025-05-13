@@ -106,3 +106,9 @@
 p {
     text-align: right;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  color: darkgray;
+}

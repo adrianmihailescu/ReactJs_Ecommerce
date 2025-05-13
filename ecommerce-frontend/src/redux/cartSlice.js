@@ -1,4 +1,3 @@
-// src/redux/cartSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
@@ -21,5 +20,50 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, loadCart } = cartSlice.actions;
 export default cartSlice.reducer;
+
+
+// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import API from '../api/api';
+
+// // Add to cart API call
+// export const addToCart = createAsyncThunk(
+//   'cart/addToCart',
+//   async (product, thunkAPI) => {
+//     const res = await API.post('/cart/add', { product });
+//     return res.data.cart;
+//   }
+// );
+
+// // Remove from cart API call
+// export const removeFromCart = createAsyncThunk(
+//   'cart/removeFromCart',
+//   async (productId, thunkAPI) => {
+//     const res = await API.post('/cart/remove', { productId });
+//     return res.data.cart;
+//   }
+// );
+
+// // Load user cart (optional)
+// export const loadCart = createAsyncThunk(
+//   'cart/loadCart',
+//   async () => {
+//     const res = await API.get('/cart');
+//     return res.data.cart;
+//   }
+// );
+
+// const cartSlice = createSlice({
+//   name: 'cart',
+//   initialState: [],
+//   reducers: {},
+//   extraReducers: builder => {
+//     builder
+//       .addCase(addToCart.fulfilled, (_, action) => action.payload)
+//       .addCase(removeFromCart.fulfilled, (_, action) => action.payload)
+//       .addCase(loadCart.fulfilled, (_, action) => action.payload);
+//   }
+// });
+
+// export default cartSlice.reducer;
