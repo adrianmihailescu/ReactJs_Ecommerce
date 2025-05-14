@@ -17,7 +17,7 @@ function ProductPage() {
   const handleAddToCart = () => {
     dispatch(addToCart(product));
     setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 2000);
+    setTimeout(() => setShowPopup(false), 1000);
   };
 
   return (

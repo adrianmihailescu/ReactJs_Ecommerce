@@ -9,7 +9,7 @@ const cartSlice = createSlice({
       const existing = state.find(item => item._id === product._id);
 
       if (existing) {
-        existing.quantity += 1; // ✅ Correctly increase the quantity
+        existing.quantity += 1;
       } else {
         state.push({ ...product, quantity: 1 });
       }
@@ -20,9 +20,9 @@ const cartSlice = createSlice({
 
       if (existing) {
         if (existing.quantity > 1) {
-          existing.quantity -= 1; // ✅ Decrease quantity
+          existing.quantity -= 1;
         } else {
-          return state.filter(item => item._id !== productId); // ✅ Remove if quantity is 1
+          return state.filter(item => item._id !== productId);
         }
       }
     },
