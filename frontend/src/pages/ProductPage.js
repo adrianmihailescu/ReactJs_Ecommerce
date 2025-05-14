@@ -14,19 +14,22 @@ function ProductPage() {
   if (!product) return <div className="product-card">Product not found</div>;
 
   return (
-    <div className="product-card product-detail">
-      <img
-        className="product-image"
-        alt={product.name}
-        src={genericProduct}
-      />
-      <h3>{product.name}</h3>
-      <p>{product.description}</p>
-      <p><strong>${product.price.toFixed(2)}</strong></p>
-      <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
-            <Link to="/" className="back-to-home">
-        &larr;Home
-      </Link>
+    <div className="product-page">
+          <h1>Product Details</h1>
+      <div className="product-card product-detail">
+        <img
+          className="product-image"
+          alt={product.name}
+          src={genericProduct}
+        />
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+        <p><strong>${product.price.toFixed(2)}</strong></p>
+        <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
+              <Link to="/" className="back-to-home">
+          &larr;Home
+        </Link>
+      </div>
     </div>
   );
 }

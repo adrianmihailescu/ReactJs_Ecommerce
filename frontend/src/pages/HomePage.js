@@ -23,7 +23,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <h1>Latest Products</h1>
+import genericProduct from '../assets/images/generic_product.png';
 
       <div className="products-grid">
         {currentProducts.length > 0 ? (

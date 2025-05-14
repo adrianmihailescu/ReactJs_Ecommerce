@@ -24,6 +24,8 @@ function CartPage() {
                     className="product-image"
                     alt={item.name}
                     src={genericProduct}
+                    width={50}
+                    height={50}
                   />
           </p>
           <p>${(item.price * item.quantity).toFixed(2)}</p>
