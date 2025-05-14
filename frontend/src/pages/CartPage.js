@@ -14,9 +14,9 @@ function CartPage() {
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
-      {cart.map(item => (
+      {cart.length > 0 ? cart.map(item => (
         <div key={item._id} className="cart-item">
-          <h4>{item.name} x {item.quantity}</h4>
+          <h4>{item.quantity} x {item.name} ({item.price} eur each)</h4>
           <p>
                   <img
                     className="product-image"
@@ -31,7 +31,9 @@ function CartPage() {
             Remove
           </button>
         </div>
-      ))}
+      )) : (
+          <p>No products available. Please add one.</p>
+        )}
       <h3>Total: ${total.toFixed(2)}</h3>
       <Link to="/checkout">
         <button disabled={cart.length == 0}>Proceed to Checkout</button>

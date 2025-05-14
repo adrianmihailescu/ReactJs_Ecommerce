@@ -4,7 +4,6 @@ const productImage = 'assets/images/products/generic_product.png';
 const productSlice = createSlice({
   name: 'products',
   initialState: [
-    // Sample product data
     { _id: '1', name: 'iPhone 15', price: 1, description: 'New Apple iPhone', image: productImage },
     { _id: '2', name: 'Samsung Galaxy S23', price: 1, description: 'New Samsung Galaxy', image: productImage },
     { _id: '3', name: 'MacBook Pro', price: 11, description: 'Apple Laptop', image: productImage },
