@@ -3,8 +3,6 @@ const router = express.Router();
 const Product = require('../models/Product');
 
 router.post('/save', async (req, res) => {
-  console.log('Received product:', req.body);
-
   try {
     const product = new Product(req.body);
     const savedProduct = await product.save();

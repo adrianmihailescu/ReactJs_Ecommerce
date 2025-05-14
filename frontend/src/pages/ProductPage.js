@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { addToCart } from '../redux/cartSlice';
 import genericProduct from '../assets/images/generic_product.png';
 import './ProductPage.css';
+import { backEndApiUrl } from '../config';
 
 function ProductPage() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ function ProductPage() {
   try {
     const { _id, ...productWithoutId } = product;
 
-    const response = await fetch('http://localhost:5000/api/products/save', {
+    const response = await fetch(`${backEndApiUrl}/products/save`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(productWithoutId),
@@ -36,9 +37,6 @@ function ProductPage() {
     if (!response.ok) {
       throw new Error('Error saving product');
     }
-
-    const data = await response.json();
-    console.log('Product saved:', data);
   } catch (error) {
     console.error('Error saving product:', error.message);
   }
