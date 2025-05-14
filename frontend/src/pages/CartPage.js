@@ -11,12 +11,19 @@ function CartPage() {
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+  const showProductDetails = (item) => {
+    const link = `/product/${item._id}`;
+    return <Link to={link} className="product-link">
+        {item.name}
+      </Link>
+  }
+
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
       {cart.length > 0 ? cart.map(item => (
         <div key={item._id} className="cart-item">
-          <h4>{item.quantity} x {item.name} ({item.price} eur each)</h4>
+          <h4>{item.quantity} x {showProductDetails(item)} ({item.price} eur each)</h4>
           <p>
                   <img
                     className="product-image"
