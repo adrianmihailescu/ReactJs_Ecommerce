@@ -3,8 +3,6 @@ import { removeFromCart } from '../redux/cartSlice';
 import { Link } from 'react-router-dom';
 import './CartPage.css';
 import genericProduct from '../assets/images/generic_product.png';
-// frontend\src\assets\images\generic_product.png
-// frontend\src\pages\CartPage.js
 
 
 function CartPage() {
