@@ -16,9 +16,33 @@ function ProductPage() {
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
+    
+    saveToDb(product);
+
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 1000);
   };
+
+  const saveToDb = async () => {
+  try {
+    const { _id, ...productWithoutId } = product;
+
+    const response = await fetch('http://localhost:5000/api/products/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productWithoutId),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error saving product');
+    }
+
+    const data = await response.json();
+    console.log('Product saved:', data);
+  } catch (error) {
+    console.error('Error saving product:', error.message);
+  }
+};
 
   return (
     <div className="product-page">
