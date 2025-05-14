@@ -44,14 +44,14 @@ const HomePage = () => {
         }}
       />
     </div>
-
+        
       <div className="products-grid">
         {currentProducts.length > 0 ? (
           currentProducts.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))
         ) : (
-          <p>No products found</p>
+          <div className="no-products">No products found</div>
         )}
       </div>
 
