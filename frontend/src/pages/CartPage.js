@@ -2,7 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../redux/cartSlice';
 import { Link } from 'react-router-dom';
 import './CartPage.css';
-import imageNotFound from '../assets/images/product_not_found.png';
+import genericProduct from '../assets/images/generic_product.png';
+// frontend\src\assets\images\generic_product.png
+// frontend\src\pages\CartPage.js
+
 
 function CartPage() {
   const cart = useSelector(state => state.cart);
@@ -17,12 +20,10 @@ function CartPage() {
         <div key={item._id} className="cart-item">
           <h4>{item.name} x {item.quantity}</h4>
           <p>
-                  <img src={item.image} alt={item.name} width="50"
-                  onError={(e) => {
-                          e.target.onerror = null; // prevents infinite loop
-                          e.target.src = imageNotFound;
-                        }
-                      }
+                  <img
+                    className="product-image"
+                    alt={item.name}
+                    src={genericProduct}
                   />
           </p>
           <p>${(item.price * item.quantity).toFixed(2)}</p>

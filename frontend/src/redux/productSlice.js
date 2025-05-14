@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-const productImage = 'https://via.placeholder.com/200';
+const productImage = 'assets/images/products/generic_product.png';
 
 const productSlice = createSlice({
   name: 'products',

@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
-import imageNotFound from '../assets/images/product_not_found.png';
+import genericProduct from '../assets/images/generic_product.png';
 import './ProductPage.css';
 
 function ProductPage() {
@@ -17,12 +17,8 @@ function ProductPage() {
     <div className="product-card product-detail">
       <img
         className="product-image"
-        src={product.image}
         alt={product.name}
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = imageNotFound;
-        }}
+        src={genericProduct}
       />
       <h3>{product.name}</h3>
       <p>{product.description}</p>
