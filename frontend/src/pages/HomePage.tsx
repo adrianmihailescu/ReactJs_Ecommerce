@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import ProductCard from '../components/ProductCard';
 import './HomePage.css';
 import { itemsPerPage } from '../config';
+import type { RootState } from '../redux/store';
 
-const HomePage = () => {
-  const products = useSelector((state) => state.products);
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  // add other product properties here if needed
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
+const HomePage: React.FC = () => {
+  const products = useSelector((state: RootState) => state.products) as Product[];
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Filter products based on search term
   const filteredProducts = products.filter(product =>
@@ -22,29 +30,31 @@ const HomePage = () => {
     currentPage * itemsPerPage
   );
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
   };
 
   return (
     <div className="homepage-container">
       <h1>Latest Products</h1>
 
-    <div className="search-bar-container">
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Search by name..."
-        value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          setCurrentPage(1);
-        }}
-      />
-    </div>
-        
+      <div className="search-bar-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
+
       <div className="products-grid">
         {currentProducts.length > 0 ? (
           currentProducts.map((product) => (

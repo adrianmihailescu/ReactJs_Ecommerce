@@ -1,15 +1,24 @@
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { addToCart } from '../redux/cartSlice';
 import genericProduct from '../assets/images/generic_product.png';
 import './ProductPage.css';
 import { backEndApiUrl } from '../config';
+import type { RootState, AppDispatch } from '../redux/store';
 
-function ProductPage() {
-  const { id } = useParams();
-  const products = useSelector(state => state.products);
-  const dispatch = useDispatch();
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  // add other properties if necessary
+}
+
+const ProductPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const products = useSelector((state: RootState) => state.products) as Product[];
+  const dispatch = useDispatch<AppDispatch>();
   const [showPopup, setShowPopup] = useState(false);
 
   const product = products.find(p => p._id === id);
@@ -17,30 +26,29 @@ function ProductPage() {
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
-    
     saveToDb(product);
-
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 1000);
   };
 
-  const saveToDb = async () => {
-  try {
-    const { _id, ...productWithoutId } = product;
+  const saveToDb = async (productToSave: Product) => {
+    try {
+      // Exclude _id if needed for saving (optional)
+      const { _id, ...productWithoutId } = productToSave;
 
-    const response = await fetch(`${backEndApiUrl}/products/save`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(productWithoutId),
-    });
+      const response = await fetch(`${backEndApiUrl}/products/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productWithoutId),
+      });
 
-    if (!response.ok) {
-      throw new Error('Error saving product');
+      if (!response.ok) {
+        throw new Error('Error saving product');
+      }
+    } catch (error: any) {
+      console.error('Error saving product:', error.message);
     }
-  } catch (error) {
-    console.error('Error saving product:', error.message);
-  }
-};
+  };
 
   return (
     <div className="product-page">
@@ -65,6 +73,6 @@ function ProductPage() {
       )}
     </div>
   );
-}
+};
 
 export default ProductPage;

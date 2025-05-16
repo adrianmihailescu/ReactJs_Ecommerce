@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/authSlice';
 import API from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import {backEndApiUrl} from '../config';
+import { backEndApiUrl } from '../config';
+import type { AppDispatch } from '../redux/store';
 
-function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+const LoginPage: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await API.post(`${backEndApiUrl}/auth/login`, { email, password });
@@ -19,9 +20,12 @@ function LoginPage() {
       navigate('/');
     } catch (err) {
       console.error('Login failed.', err);
-      alert('Logion failed. Please try again later.');
+      alert('Login failed. Please try again later.');
     }
   };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -31,18 +35,18 @@ function LoginPage() {
         placeholder="Email"
         value={email}
         required
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleEmailChange}
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         required
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
       />
       <button type="submit">Login</button>
     </form>
   );
-}
+};
 
 export default LoginPage;

@@ -6,18 +6,19 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { JSX } from 'react';
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
 // import { loadCart } from './redux/cartSlice';
 
-function App() {
-    // const dispatch = useDispatch();
+function App(): JSX.Element {
+  // const dispatch = useDispatch();
 
-    /*
-    useEffect(() => {
-      dispatch(loadCart());
-    }, [dispatch]);
-    */
+  /*
+  useEffect(() => {
+    dispatch(loadCart());
+  }, [dispatch]);
+  */
 
   return (
     <Router>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
     </Router>
   );

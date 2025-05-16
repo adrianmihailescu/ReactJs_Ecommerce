@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import API from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import {backEndApiUrl} from '../config';
+import { backEndApiUrl } from '../config';
 
-function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const RegisterPage: React.FC = () => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       console.log('Registering user:', { name, email, password });
@@ -17,7 +17,7 @@ function RegisterPage() {
       await API.post(registerPath, { name, email, password });
       alert('Registration successful! Please login.');
       navigate('/login');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Registration failed.', err);
       alert('Registration failed.');
     }
@@ -50,6 +50,6 @@ function RegisterPage() {
       <button type="submit">Register</button>
     </form>
   );
-}
+};
 
 export default RegisterPage;
