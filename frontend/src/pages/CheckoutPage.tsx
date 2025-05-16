@@ -3,13 +3,7 @@ import { useSelector } from 'react-redux';
 import { PayPalScriptProvider, PayPalButtons, FUNDING } from '@paypal/react-paypal-js';
 import { reactPayPalClientId } from '../config';
 import type { RootState } from '../redux/store';
-
-interface CartItem {
-  _id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from '../interfaces/CartItem';
 
 function CheckoutPage() {
   const cart = useSelector((state: RootState) => state.cart) as CartItem[];

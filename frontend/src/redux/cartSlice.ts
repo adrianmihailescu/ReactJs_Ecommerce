@@ -8,7 +8,6 @@ export interface CartItem {
   [key: string]: any; // optional — covers extras like image, description, etc.
 }
 
-
 const initialState: CartItem[] = [];
 
 const cartSlice = createSlice({

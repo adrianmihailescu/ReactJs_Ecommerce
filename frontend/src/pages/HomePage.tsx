@@ -4,13 +4,7 @@ import ProductCard from '../components/ProductCard';
 import './HomePage.css';
 import { itemsPerPage } from '../config';
 import type { RootState } from '../redux/store';
-
-interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  // add other product properties here if needed
-}
+import { Product } from '../interfaces/Product';
 
 const HomePage: React.FC = () => {
   const products = useSelector((state: RootState) => state.products) as Product[];

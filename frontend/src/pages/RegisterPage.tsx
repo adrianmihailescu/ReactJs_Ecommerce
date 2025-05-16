@@ -12,7 +12,6 @@ const RegisterPage: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Registering user:', { name, email, password });
       const registerPath = `${backEndApiUrl}/auth/register`;
       await API.post(registerPath, { name, email, password });
       alert('Registration successful! Please login.');

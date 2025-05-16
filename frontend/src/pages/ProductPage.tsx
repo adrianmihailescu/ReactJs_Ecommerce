@@ -6,14 +6,7 @@ import genericProduct from '../assets/images/generic_product.png';
 import './ProductPage.css';
 import { backEndApiUrl } from '../config';
 import type { RootState, AppDispatch } from '../redux/store';
-
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  // add other properties if necessary
-}
+import { Product } from '../interfaces/Product';
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

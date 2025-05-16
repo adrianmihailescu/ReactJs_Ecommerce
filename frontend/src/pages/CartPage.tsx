@@ -5,13 +5,7 @@ import './CartPage.css';
 import genericProduct from '../assets/images/generic_product.png';
 import { RootState } from '../redux/store';
 import { AppDispatch } from '../redux/store';
-
-interface CartItem {
-  _id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from '../interfaces/CartItem';
 
 function CartPage() {
   const cart = useSelector((state: RootState) => state.cart);
