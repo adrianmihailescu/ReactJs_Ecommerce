@@ -1,4 +1,4 @@
-# ReactJs Ecommerce app
+# React .js Ecommerce app
 Node .js, TypeScript, Mongo db, PayPal sandbox integration
 ![image](https://github.com/user-attachments/assets/5aec2209-c8bf-44e2-804a-23d86416e5e7)
 
