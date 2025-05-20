@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import genericProduct from '../assets/images/generic_product.png';
-import { Product } from '../interfaces/Product';
 import { ProductCardProps } from '../interfaces/ProductCardProps';
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
