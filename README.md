@@ -16,3 +16,7 @@ Node .js, TypeScript, Mongo db
 # Automation testing (PlayWright)
 ![image](https://github.com/user-attachments/assets/05c74f78-522e-43fc-a788-724cacdd6e4b)
 
+# Python Scripts to process the MongoDb database
+![image](https://github.com/user-attachments/assets/af0bf234-9ac5-417f-8410-98422eef8f32)
+
+
