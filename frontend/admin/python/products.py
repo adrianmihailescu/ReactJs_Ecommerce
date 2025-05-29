@@ -6,10 +6,9 @@ def aggregate_products_by_name():
     Connects to a MongoDB instance, aggregates products by name,
     and prints the count for each unique product name.
     """
-    client = None # Initialize client to None
+    client = None
     try:
         # Establish a connection to MongoDB
-        # Assuming MongoDB is running on localhost:27017
         client = MongoClient('mongodb://localhost:27017/')
         print("Successfully connected to MongoDB!")
 
