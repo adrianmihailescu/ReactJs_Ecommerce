@@ -1,5 +1,7 @@
 # React .js Ecommerce app
-Node .js, TypeScript, Mongo db, PayPal sandbox integration
+Node .js, TypeScript, Mongo db
+<br />PayPal sandbox integration
+<br />Automation testing: PlayWright
 ![image](https://github.com/user-attachments/assets/5aec2209-c8bf-44e2-804a-23d86416e5e7)
 
 ![image](https://github.com/user-attachments/assets/17d21753-1926-4ef1-84e1-4607d79e9084)
@@ -8,5 +10,9 @@ Node .js, TypeScript, Mongo db, PayPal sandbox integration
 
 ![image](https://github.com/user-attachments/assets/02fdf0bb-093a-4a3a-9482-f7f54741c7be)
 
-MongoDb repository <br />
+# MongoDb repository <br />
 ![image](https://github.com/user-attachments/assets/19d55cce-7fe3-4063-8975-d694d983c6a1)
+
+# Automation testing (PlayWright)
+![image](https://github.com/user-attachments/assets/05c74f78-522e-43fc-a788-724cacdd6e4b)
+
