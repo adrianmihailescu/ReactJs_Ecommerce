@@ -1,46 +1,113 @@
-import { test, expect } from '@playwright/test';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../redux/cartSlice';
+import productReducer from '../redux/productSlice';
+import authReducer from '../redux/authSlice';
+import HomePage from '../pages/HomePage';
 
-// const wait = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const createTestStore = (preloadedState?: any) => {
+  return configureStore({
+    reducer: {
+      cart: cartReducer,
+      products: productReducer,
+      auth: authReducer,
+    },
+    preloadedState,
+  });
+};
 
-test.describe('HomePage', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000');
+const renderHomePage = (store?: any) => {
+  const testStore = store || createTestStore();
+  return render(
+    <Provider store={testStore}>
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    </Provider>
+  );
+};
+
+describe('HomePage Component', () => {
+  test('renders "Latest Products" heading', () => {
+    renderHomePage();
+    expect(screen.getByText('Latest Products')).toBeInTheDocument();
   });
 
-  test('should display product cards', async ({ page }) => {
-    // Wait for product cards to be rendered
-    const count = await page.locator('.products-grid .product-card').count();
-    expect(count).toBeGreaterThan(0);
+  test('renders product cards from store', () => {
+    renderHomePage();
+    // Default store has 13 products; page 1 shows 8
+    expect(screen.getByText('iPhone 15')).toBeInTheDocument();
+    expect(screen.getByText('Samsung Galaxy S23')).toBeInTheDocument();
   });
 
-  test('should paginate products', async ({ page }) => {
-    const productsOnPage1 = await page.locator('.products-grid .product-card').allTextContents();
-    // await wait(10000); // Wait before navigation
-
-    await page.getByRole('button', { name: /next/i }).click();
-    // await wait(10000); // Wait before navigation
-
-    const productsOnPage2 = await page.locator('.products-grid .product-card').allTextContents();
-    // await wait(10000); // Wait before navigation
-
-    // Check that the content has changed
-    expect(productsOnPage2).not.toEqual(productsOnPage1);
+  test('renders search input', () => {
+    renderHomePage();
+    expect(screen.getByPlaceholderText('Search by name...')).toBeInTheDocument();
   });
 
-  test('should go back to previous page', async ({ page }) => {
-    await page.getByRole('button', { name: /next/i }).click();
-    const page2Products = await page.locator('.products-grid .product-card').allTextContents();
-
-    await page.getByRole('button', { name: /previous/i }).click();
-    const page1Products = await page.locator('.products-grid .product-card').allTextContents();
-
-    expect(page1Products).not.toEqual(page2Products);
+  test('renders pagination controls', () => {
+    renderHomePage();
+    expect(screen.getByText('Previous')).toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
   });
 
-  test('shows message when no products match search', async ({ page }) => {
-    const searchInput = page.locator('input[placeholder="Search by name..."]');
-    await searchInput.fill('this value does not exist'); // unlikely to match any product
+  test('Previous button is disabled on first page', () => {
+    renderHomePage();
+    expect(screen.getByText('Previous')).toBeDisabled();
+  });
 
-    await expect(page.locator('.no-products')).toBeVisible();
+  test('Next button navigates to page 2', () => {
+    renderHomePage();
+    fireEvent.click(screen.getByText('Next'));
+    expect(screen.getByText(/Page 2/)).toBeInTheDocument();
+  });
+
+  test('search filters products by name', () => {
+    renderHomePage();
+    const searchInput = screen.getByPlaceholderText('Search by name...');
+    fireEvent.change(searchInput, { target: { value: 'MacBook' } });
+    expect(screen.getByText('MacBook Pro')).toBeInTheDocument();
+    expect(screen.queryByText('iPhone 15')).not.toBeInTheDocument();
+  });
+
+  test('shows "No products found" for unmatched search', () => {
+    renderHomePage();
+    const searchInput = screen.getByPlaceholderText('Search by name...');
+    fireEvent.change(searchInput, { target: { value: 'xyznonexistent' } });
+    expect(screen.getByText('No products found')).toBeInTheDocument();
+  });
+
+  test('search is case-insensitive', () => {
+    renderHomePage();
+    const searchInput = screen.getByPlaceholderText('Search by name...');
+    fireEvent.change(searchInput, { target: { value: 'iphone' } });
+    expect(screen.getByText('iPhone 15')).toBeInTheDocument();
+  });
+
+  test('pagination resets to page 1 on search', () => {
+    renderHomePage();
+    fireEvent.click(screen.getByText('Next'));
+    const searchInput = screen.getByPlaceholderText('Search by name...');
+    fireEvent.change(searchInput, { target: { value: 'Samsung' } });
+    expect(screen.getByText(/Page 1/)).toBeInTheDocument();
+  });
+
+  test('shows correct page count text', () => {
+    renderHomePage();
+    // 13 products / 8 per page = 2 pages
+    expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
+  });
+
+  test('shows empty store message', () => {
+    const store = createTestStore({
+      cart: [],
+      products: [],
+      auth: { user: null },
+    });
+    renderHomePage(store);
+    expect(screen.getByText('No products found')).toBeInTheDocument();
   });
 });
